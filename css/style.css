@@ -1,5 +1,6 @@
 .currentTime, .timeRemaining {
     display: flex;
+    align-items: center;
     margin: 2rem;
 }
 .currentTime div, 

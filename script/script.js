@@ -68,6 +68,7 @@ function calcTimeRemaining (hours, minutes, seconds) {
 refreshRemaining = setInterval(writeTimeRemaining, 1000)
 function writeTimeRemaining () {
     let timeRemaining = calcTimeRemaining(getSpotTime(spotTime)[0],getSpotTime(spotTime)[1],getSpotTime(spotTime)[2])
+    
     let hours = timeRemaining[0]
     hours = hours<10?'0'+hours:hours
     document.getElementById("remainingHours").innerHTML = hours
