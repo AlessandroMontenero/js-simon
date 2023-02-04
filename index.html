@@ -8,9 +8,20 @@
     <title>js-simon</title>
   </head>
   <body>
-    <div id="remainingHours"></div>
-    <div id="remainingMinutes"></div>
-    <div id="remainingSeconds"></div>
+    <div class="currentTime">
+      <div id="currentHours"></div>
+      <div id="currentMinutes"></div>
+      <div id="currentSeconds"></div>
+    </div>
+    <div class="setInterval">
+      <input type="time" name="" id="spotTime" value="09:30:00" step="2" />
+      <button id="setSpotTime">Calcola!</button>
+    </div>
+    <div class="timeRemaining">
+      <div id="remainingHours"></div>
+      <div id="remainingMinutes"></div>
+      <div id="remainingSeconds"></div>
+    </div>
     <script src="./script/script.js"></script>
   </body>
 </html>

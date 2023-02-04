@@ -1,0 +1,8 @@
+.currentTime, .timeRemaining {
+    display: flex;
+    margin: 2rem;
+}
+.currentTime div, 
+.timeRemaining div {
+    margin: 1rem;
+}
