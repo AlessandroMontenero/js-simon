@@ -22,12 +22,15 @@ refreshCurrent = setInterval(writeCurrentTime, 1000)
 
 function writeCurrentTime() {
     let hours = getTime()[3]
+    hours = hours<10?'0'+hours:hours
     document.getElementById("currentHours").innerHTML = 'sono le ' + hours + ':'
 
     let minutes = getTime()[4]
+    minutes = minutes<10?'0'+minutes:minutes
     document.getElementById("currentMinutes").innerHTML = minutes + ':'
 
     let seconds = getTime()[5]
+    seconds = seconds<10?'0'+seconds:seconds
     document.getElementById("currentSeconds").innerHTML = seconds
 }
 
@@ -73,19 +76,35 @@ function writeTimeRemaining () {
     let timeRemaining = calcTimeRemaining(getSpotTime(spotTime)[0],getSpotTime(spotTime)[1],getSpotTime(spotTime)[2])
     
     let days = timeRemaining[0]
-    document.getElementById("remainingDays").innerHTML = 'mancano ' + days + ' giorni, '
+    if (days != 0) {
+        document.getElementById("remainingDays").innerHTML = 'manca ' + days + ' giorno, '
+    }
+    else {
+        document.getElementById("remainingDays").innerHTML = 'mancano '
+    }
 
     let hours = timeRemaining[1]
-    hours = hours<10?'0'+hours:hours
-    document.getElementById("remainingHours").innerHTML = hours + ' ore, '
+    if (hours == 1) {
+        document.getElementById("remainingHours").innerHTML = hours + ' ora, '
+    }
+    else {
+        document.getElementById("remainingHours").innerHTML = hours + ' ore, ' 
+    }
 
     let minutes = timeRemaining[2]
-    minutes = minutes<10?'0'+minutes:minutes
-    document.getElementById("remainingMinutes").innerHTML = minutes + ' minuti e '
-
+    if (minutes == 1) {
+        document.getElementById("remainingMinutes").innerHTML = minutes + ' minuto e '
+    }
+    else {
+        document.getElementById("remainingMinutes").innerHTML = minutes + ' minuti e '
+    }
     let seconds = timeRemaining[3]
-    seconds = seconds<10?'0'+seconds:seconds
-    document.getElementById("remainingSeconds").innerHTML = seconds + " secondi a quest'ora di domani"
+    if (seconds == 1) {
+        document.getElementById("remainingSeconds").innerHTML = seconds + " secondo a quest'ora di domani"
+    }
+    else {
+        document.getElementById("remainingSeconds").innerHTML = seconds + " secondi a quest'ora di domani"
+    }
 }
 
 
