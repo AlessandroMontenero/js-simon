@@ -3,7 +3,7 @@
     align-items: center;
     margin: 2rem;
 }
-.currentTime div, 
+
 .timeRemaining div {
-    margin: 1rem;
+    margin-left: 3px;
 }

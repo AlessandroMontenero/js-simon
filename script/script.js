@@ -22,10 +22,10 @@ refreshCurrent = setInterval(writeCurrentTime, 1000)
 
 function writeCurrentTime() {
     let hours = getTime()[3]
-    document.getElementById("currentHours").innerHTML = hours
+    document.getElementById("currentHours").innerHTML = 'sono le ' + hours + ':'
 
     let minutes = getTime()[4]
-    document.getElementById("currentMinutes").innerHTML = minutes
+    document.getElementById("currentMinutes").innerHTML = minutes + ':'
 
     let seconds = getTime()[5]
     document.getElementById("currentSeconds").innerHTML = seconds
@@ -46,9 +46,12 @@ function getSpotTime(spotTime) {
 }
 
 function calcTimeRemaining (hours, minutes, seconds) {
+    let daysRemaining = 0
+
     hoursRemaining = hours + (24 - getTime()[3]) - 1
     if (hoursRemaining >= 24) {
         hoursRemaining -= 24
+        daysRemaining += 1
     }
     minutesRemaining = minutes + (60 - getTime()[4]) - 1
     if (minutesRemaining >= 60) {
@@ -60,7 +63,7 @@ function calcTimeRemaining (hours, minutes, seconds) {
         minutesRemaining += 1
         secondsRemaining -= 60
     }
-    currentTimeRemaining = [hoursRemaining, minutesRemaining, secondsRemaining]
+    currentTimeRemaining = [daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining]
     return currentTimeRemaining
 }
 
@@ -69,17 +72,20 @@ refreshRemaining = setInterval(writeTimeRemaining, 1000)
 function writeTimeRemaining () {
     let timeRemaining = calcTimeRemaining(getSpotTime(spotTime)[0],getSpotTime(spotTime)[1],getSpotTime(spotTime)[2])
     
-    let hours = timeRemaining[0]
+    let days = timeRemaining[0]
+    document.getElementById("remainingDays").innerHTML = 'mancano ' + days + ' giorni, '
+
+    let hours = timeRemaining[1]
     hours = hours<10?'0'+hours:hours
-    document.getElementById("remainingHours").innerHTML = hours
+    document.getElementById("remainingHours").innerHTML = hours + ' ore, '
 
-    let minutes = timeRemaining[1]
+    let minutes = timeRemaining[2]
     minutes = minutes<10?'0'+minutes:minutes
-    document.getElementById("remainingMinutes").innerHTML = minutes
+    document.getElementById("remainingMinutes").innerHTML = minutes + ' minuti e '
 
-    let seconds = timeRemaining[2]
+    let seconds = timeRemaining[3]
     seconds = seconds<10?'0'+seconds:seconds
-    document.getElementById("remainingSeconds").innerHTML = seconds
+    document.getElementById("remainingSeconds").innerHTML = seconds + " secondi a quest'ora di domani"
 }
 
 
