@@ -2,20 +2,19 @@
 function getTomorrowLessonDate() {
     let tomorrowLesson = new Date()
     tomorrowLesson.setDate(tomorrowLesson.getDate() + 1)
-    tomorrowLesson.setFullYear(tomorrowLesson.getFullYear())
-    tomorrowLesson.setHours(9, 30, 0)
+    tomorrowLesson.setHours(10, 30, 0)
     return tomorrowLesson
 }
 
 /* Aggiungo domani alle 9.30 nell'HTML del DateTime */
 let tomorrow = new Date (getTomorrowLessonDate())
 let tomorrowUTC = tomorrow.toISOString().replace(/.\d+Z$/g, "")
-document.getElementById("spotTime").innerHTML = tomorrow
+document.getElementById("spotTime").value = tomorrowUTC
 
 /* Funzione data attuale */
 function getCurrentTime() {
     const currentTime = new Date();
-    currentTime.setFullYear(currentTime.getFullYear() - 1)
+    currentTime.setHours(currentTime.getHours())
     return currentTime
 }
 
@@ -23,7 +22,6 @@ function getCurrentTime() {
 function getSpotTime() {
     let UTCspotTime = document.getElementById("spotTime").value
     let spotTime = new Date(UTCspotTime)
-    console.log(spotTime)
     return spotTime
 }
 
