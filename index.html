@@ -4,24 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/style.css" />
     <title>js-simon</title>
   </head>
   <body>
-    <div class="currentTime">
-      <div id="currentHours"></div>
-      <div id="currentMinutes"></div>
-      <div id="currentSeconds"></div>
-    </div>
-    <div class="setInterval">
-      <input type="time" name="" id="spotTime" value="09:30:00" step="2" />
-      <button id="setSpotTime">Calcola!</button>
-    </div>
-    <div class="timeRemaining">
-      <div id="remainingDays"></div>
-      <div id="remainingHours"></div>
-      <div id="remainingMinutes"></div>
-      <div id="remainingSeconds"></div>
+    <input
+      type="datetime-local"
+      name="spotTime"
+      id="spotTime"
+      value="2022-02-07T09:30"
+    />
+    <div class="diffTime">
+      <div id="diffDays"></div>
+      <div id="diffHours"></div>
+      <div id="diffMinutes"></div>
+      <div id="diffSeconds"></div>
     </div>
     <script src="./script/script.js"></script>
   </body>

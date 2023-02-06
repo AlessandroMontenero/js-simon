@@ -1,114 +1,55 @@
-
-
-/* Creo una funzione che resistuisce la data attuale e che si aggiorna ogni secondo*/
-
-readClock = setInterval(getTime, 1000)
-let currentClock = []
-function getTime() {
-    const date = new Date()
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let day = date.getDate()
-    
-    let hour = date.getHours()
-    let minutes = date.getMinutes()
-    let seconds = date.getSeconds()
-    
-    currentClock = [year, month, day, hour, minutes, seconds]
-    return currentClock 
+/* Funzione domani alle 9:30 */
+function getTomorrowLessonDate() {
+    let tomorrowLesson = new Date()
+    tomorrowLesson.setDate(tomorrowLesson.getDate() + 1)
+    tomorrowLesson.setFullYear(tomorrowLesson.getFullYear())
+    tomorrowLesson.setHours(9, 30, 0)
+    return tomorrowLesson
 }
 
-refreshCurrent = setInterval(writeCurrentTime, 1000)
+/* Aggiungo domani alle 9.30 nell'HTML del DateTime */
+let tomorrow = new Date (getTomorrowLessonDate())
+let tomorrowUTC = tomorrow.toISOString().replace(/.\d+Z$/g, "")
+document.getElementById("spotTime").innerHTML = tomorrow
 
-function writeCurrentTime() {
-    let hours = getTime()[3]
-    hours = hours<10?'0'+hours:hours
-    document.getElementById("currentHours").innerHTML = 'sono le ' + hours + ':'
-
-    let minutes = getTime()[4]
-    minutes = minutes<10?'0'+minutes:minutes
-    document.getElementById("currentMinutes").innerHTML = minutes + ':'
-
-    let seconds = getTime()[5]
-    seconds = seconds<10?'0'+seconds:seconds
-    document.getElementById("currentSeconds").innerHTML = seconds
+/* Funzione data attuale */
+function getCurrentTime() {
+    const currentTime = new Date();
+    currentTime.setFullYear(currentTime.getFullYear() - 1)
+    return currentTime
 }
 
-
-let spotTime = document.getElementById("spotTime").value
-document.getElementById("setSpotTime").onclick = function(){
-    spotTime = document.getElementById("spotTime").value
+/* Funzione che legge se la data nel DataValue cambia*/
+function getSpotTime() {
+    let UTCspotTime = document.getElementById("spotTime").value
+    let spotTime = new Date(UTCspotTime)
+    console.log(spotTime)
+    return spotTime
 }
 
-function getSpotTime(spotTime) {
-    let hours = parseInt(spotTime.slice(0,2))
-    let minutes = parseInt(spotTime.slice(3,5))
-    let seconds = parseInt(spotTime.slice(6,8))
-    let time = [hours, minutes, seconds]
-    return time
+/* Funzione che calcola la differenza tra la data attuale e quella nel DataValue */
+function getDiffTime() {
+    let calcDiffTime = getSpotTime() - getCurrentTime()
+    let seconds = Math.floor(calcDiffTime / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24)
+  
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+    hours = hours % 24;
+
+    let diffTime = [days, hours, minutes, seconds]
+    return diffTime
 }
 
-function calcTimeRemaining (hours, minutes, seconds) {
-    let daysRemaining = 0
+/* Refresho la differenza di tempo ogni secondo */
+let refreshDiffValue = setInterval(writeDiffValue, 1000)
 
-    hoursRemaining = hours + (24 - getTime()[3]) - 1
-    if (hoursRemaining >= 24) {
-        hoursRemaining -= 24
-        daysRemaining += 1
-    }
-    minutesRemaining = minutes + (60 - getTime()[4]) - 1
-    if (minutesRemaining >= 60) {
-        hoursRemaining += 1
-        minutesRemaining -= 60
-    }
-    secondsRemaining = seconds + (60 - getTime()[5])
-    if (secondsRemaining >= 60) {
-        minutesRemaining += 1
-        secondsRemaining -= 60
-    }
-    currentTimeRemaining = [daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining]
-    return currentTimeRemaining
+/* Scrivo la differenza di tempo nell'HTML */
+function writeDiffValue(){
+    document.getElementById("diffDays").innerHTML = getDiffTime()[0]
+    document.getElementById("diffHours").innerHTML = getDiffTime()[1]
+    document.getElementById("diffMinutes").innerHTML = getDiffTime()[2]
+    document.getElementById("diffSeconds").innerHTML = getDiffTime()[3]
 }
-
-
-refreshRemaining = setInterval(writeTimeRemaining, 1000)
-function writeTimeRemaining () {
-    let timeRemaining = calcTimeRemaining(getSpotTime(spotTime)[0],getSpotTime(spotTime)[1],getSpotTime(spotTime)[2])
-    
-    let days = timeRemaining[0]
-    if (days != 0) {
-        document.getElementById("remainingDays").innerHTML = 'manca ' + days + ' giorno, '
-    }
-    else {
-        document.getElementById("remainingDays").innerHTML = 'mancano '
-    }
-
-    let hours = timeRemaining[1]
-    if (hours == 1) {
-        document.getElementById("remainingHours").innerHTML = hours + ' ora, '
-    }
-    else {
-        document.getElementById("remainingHours").innerHTML = hours + ' ore, ' 
-    }
-
-    let minutes = timeRemaining[2]
-    if (minutes == 1) {
-        document.getElementById("remainingMinutes").innerHTML = minutes + ' minuto e '
-    }
-    else {
-        document.getElementById("remainingMinutes").innerHTML = minutes + ' minuti e '
-    }
-    let seconds = timeRemaining[3]
-    if (seconds == 1) {
-        document.getElementById("remainingSeconds").innerHTML = seconds + " secondo a quest'ora di domani"
-    }
-    else {
-        document.getElementById("remainingSeconds").innerHTML = seconds + " secondi a quest'ora di domani"
-    }
-}
-
-
-
-
-
-
